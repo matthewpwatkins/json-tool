@@ -1,5 +1,12 @@
 body {
-    
+    background-color: #252526;
+    height: 100%;
+}
+
+.editor-title-tab {
+    color: #d4d4d4;
+    padding: .5rem 1rem;
+    background-color: #1e1e1e;
 }
 
 .editor-container {

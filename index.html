@@ -10,22 +10,28 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top p-0">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">JSON Transformer</a>
         </div>
     </nav>
 
-    <main id="app" role="main" class="container-fluid" style="margin-top: 5rem;">
-        <div class="row">
+    <main id="app" role="main" class="container-fluid mt-5 pt-3">
+        <div class="row d-flex">
             <div class="col">
-                <h3>Input JSON</h3>
+                <span class="editor-title-tab">
+                    <i class="fas fa-code fa-xs mr-2" style="color: orange"></i>
+                    input.json
+                </span>
                 <div class="editor-container">
                     <div id="input-editor" class="editor editor-block" contenteditable="true"></div>
                 </div>
             </div>
             <div class="col">
-                <h3>Transform JS</h3>
+                <span class="editor-title-tab">
+                    <i class="fas fa-code fa-xs mr-2" style="color: orange"></i>
+                    transform.js
+                </span>
                 <div class="editor-container">
                     <div class="editor">function transform(obj) {</div>
                     <div id="transform-editor" class="editor editor-block" contenteditable="true"></div>
@@ -33,7 +39,10 @@
                 </div>
             </div>
             <div class="col">
-                <h3>Result JSON</h3>
+                <span class="editor-title-tab">
+                    <i class="fas fa-code fa-xs mr-2" style="color: orange"></i>
+                    result.json
+                </span>
                 <div class="editor-container">
                     <div id="result-editor" class="editor editor-block"></div>
                 </div>
