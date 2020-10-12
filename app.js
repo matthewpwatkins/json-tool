@@ -124,7 +124,6 @@ $(function () {
   EDITORS_BY_ID['editor-transform'].setValue(DEFAULT_TRANSFORM_FUNCTION_BODY_STRING, -1);
 
   const performTransform = () => {
-    console.log('In perform transform');
     let operation;
     let consoleLine;
     try {
@@ -174,6 +173,7 @@ $(function () {
       row: consoleEditor.session.getLength(),
       column: 0
     }, `${prepend}${new Date().toISOString()}: ${consoleLine}`);
+    consoleEditor.scrollToLine(existingLines + 1, false, false);
   };
 
   performTransform();
