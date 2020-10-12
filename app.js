@@ -126,6 +126,7 @@ $(function () {
   const performTransform = () => {
     console.log('In perform transform');
     let operation;
+    let consoleLine;
     try {
       operation = 'reading JSON input';
       const inputText = EDITORS_BY_ID['editor-input'].getValue();
@@ -159,15 +160,27 @@ $(function () {
 
       operation = null;
       EDITORS_BY_ID['editor-output'].setValue(resultObjectJSON, -1);
-      EDITORS_BY_ID['editor-console'].setValue('Transformed successfully', -1);
+      consoleLine = 'Transformed successfully';
     } catch (err) {
       console.error(operation, err);
       EDITORS_BY_ID['editor-output'].setValue('', -1);
-      EDITORS_BY_ID['editor-console'].setValue(`ERROR ${operation}\n${err}`, -1);
+      consoleLine = `ERROR ${operation}\n${err}`;
     }
+
+    const consoleEditor =  EDITORS_BY_ID['editor-console'];
+    const existingLines = consoleEditor.session.getLength();
+    const prepend = existingLines > 1 || consoleEditor.getValue().trim().length > 0 ? '\n' : ''
+    consoleEditor.session.insert({
+      row: consoleEditor.session.getLength(),
+      column: 0
+    }, `${prepend}${new Date().toISOString()}: ${consoleLine}`);
   };
 
   performTransform();
 
   $('#btn-transform').click(performTransform);
+
+  $('#btn-console-clear').click(function() {
+    EDITORS_BY_ID['editor-console'].setValue('', -1);
+  });
 });
