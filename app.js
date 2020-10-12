@@ -74,6 +74,7 @@ $(function () {
   const inputEditor = $("#input-editor");
   const transformEditor = $("#transform-editor");
   const resultEditor = $("#result-editor");
+  const btnTransform = $('#btn-transform');
 
   inputEditor.text(JSON.stringify(DEFAULT_OBJ, null, 2));
   transformEditor.text(DEFAULT_TRANSFORM_FUNCTION_BODY_STRING);
@@ -85,12 +86,7 @@ $(function () {
     resultEditor.text(JSON.stringify(resultObject, null, 2));
   };
 
-  inputEditor.keyup(() => {
-    transform();
-  });
-  transformEditor.keyup(() => {
-    transform();
-  });
+  btnTransform.click(transform);
 
   transform();
 });
