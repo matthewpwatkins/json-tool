@@ -31,3 +31,12 @@ a:hover {
 .hidden-file-selector {
     display: none;
 }
+
+.navbar-icon-img {
+    width: 1.35rem;
+    vertical-align: top;
+}
+
+#footer a {
+    color: unset;
+}
