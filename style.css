@@ -1,5 +1,5 @@
-body {
-    margin-top: 1.5rem;
+#app {
+    min-height: 100vh;
 }
 
 a {
@@ -30,10 +30,4 @@ a:hover {
 
 .hidden-file-selector {
     display: none;
-}
-
-.console {
-    position: absolute;
-    bottom: 0;
-    z-index: 999;
 }
