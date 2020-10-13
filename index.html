@@ -12,93 +12,92 @@
 
 <body class="bg-dark">
     <div id="app" class="d-flex flex-column justify-content-between">
-        <div id="top">
+        <div id="top" class="flex-grow-1 d-flex flex-column justify-content-between">
             <nav class="navbar navbar-expand-md navbar-dark bg-primary py-0 px-2">
                 <a class="navbar-brand">JSON Transformer</a>
             </nav>
-            <div id="editors">
-                <div class="row mx-0">
-                    <!-- INPUT COLUMN -->
-                    <div class="col px-0">
-                        <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
-                            <ul class="navbar-nav">
-                                <li class="nav-item ace-editor-title-tab">
-                                    <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> input.json</strong></span>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        File
+            <div id="editors" class="flex-grow-1 row mx-0">
+                <!-- INPUT COLUMN -->
+                <div class="col px-0 d-flex flex-column justify-content-between">
+                    <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item ace-editor-title-tab">
+                                <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> input.json</strong></span>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    File
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item btn-file-open" file-input-target="editor-input-file-selector">
+                                        <i class="far fa-folder-open"></i> Open
                                     </a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item btn-file-open" file-input-target="editor-input-file-selector">
-                                            <i class="far fa-folder-open"></i> Open
-                                        </a>
-                                        <a class="dropdown-item btn-file-save" editor-target="editor-input" file-name="input.json">
-                                            <i class="far fa-save"></i> Save
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-                        <input class="hidden-file-selector" id="editor-input-file-selector" editor-target="editor-input" type="file" accept=".json,.jsonc" />
-                        <div id="editor-input" class="ace-editor" ace-language="json5" ace-min-lines="50" ace-max-lines="50"></div>
-                    </div>
-        
-                    <!-- TRANSFORM COLUMN -->
-                    <div class="col px-0">
-                        <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item ace-editor-title-tab">
-                                    <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> transform.js</strong></span>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        File
+                                    <a class="dropdown-item btn-file-save" editor-target="editor-input" file-name="input.json">
+                                        <i class="far fa-save"></i> Save
                                     </a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item btn-file-open" file-input-target="editor-transform-file-selector">
-                                            <i class="far fa-folder-open"></i> Open
-                                        </a>
-                                        <a class="dropdown-item btn-file-save" editor-target="editor-transform" file-name="transform.js">
-                                            <i class="far fa-save"></i> Save
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a id="btn-transform" class="nav-link text-light"><strong>TRANSFORM <i class="fas fa-arrow-right ml-1"></i></strong></a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <input class="hidden-file-selector" id="editor-transform-file-selector" editor-target="editor-transform" type="file" accept=".js" />
-                        <div id="editor-transform" class="ace-editor" ace-language="javascript" ace-min-lines="50" ace-max-lines="50"></div>
-                    </div>
-        
-                    <!-- OUTPUT COLUMN -->
-                    <div class="col px-0">
-                        <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
-                            <ul class="navbar-nav">
-                                <li class="nav-item ace-editor-title-tab">
-                                    <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> output.json</strong></span>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">File</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item btn-file-save" editor-target="editor-output" file-name="output.json">
-                                            <i class="far fa-save"></i> Save
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div id="editor-output" class="ace-editor" ace-language="json5" ace-read-only ace-read-only ace-min-lines="50" ace-max-lines="50"></div>
-                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <input class="hidden-file-selector" id="editor-input-file-selector" editor-target="editor-input" type="file" accept=".json,.jsonc" />
+                    <div id="editor-input" class="flex-grow-1 ace-editor ace-language="json5"></div>
+                </div>
+
+                <!-- TRANSFORM COLUMN -->
+                <div class="col px-0 d-flex flex-column justify-content-between">
+                    <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item ace-editor-title-tab">
+                                <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> transform.js</strong></span>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    File
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item btn-file-open" file-input-target="editor-transform-file-selector">
+                                        <i class="far fa-folder-open"></i> Open
+                                    </a>
+                                    <a class="dropdown-item btn-file-save" editor-target="editor-transform" file-name="transform.js">
+                                        <i class="far fa-save"></i> Save
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a id="btn-transform" class="nav-link text-light"><strong>TRANSFORM <i class="fas fa-arrow-right ml-1"></i></strong></a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <input class="hidden-file-selector" id="editor-transform-file-selector" editor-target="editor-transform" type="file" accept=".js" />
+                    <div id="editor-transform" class="flex-grow-1 ace-editor" ace-language="javascript"></div>
+                </div>
+
+                <!-- OUTPUT COLUMN -->
+                <div class="col px-0 d-flex flex-column justify-content-between">
+                    <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item ace-editor-title-tab">
+                                <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> output.json</strong></span>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">File</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item btn-file-save" editor-target="editor-output" file-name="output.json">
+                                        <i class="far fa-save"></i> Save
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div id="editor-output" class="ace-editor flex-grow-1" ace-language="json5" ace-read-only ace-read-only></div>
                 </div>
             </div>
         </div>
+        <div id="top-bottom-separator" class="my-2"></div>
         <div id="bottom">
             <div id="console">
                 <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
