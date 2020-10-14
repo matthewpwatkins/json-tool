@@ -183,4 +183,6 @@ $(function () {
   $('#btn-console-clear').click(function() {
     EDITORS_BY_ID['editor-console'].setValue('', -1);
   });
+
+  $('#btn-help').click();
 });

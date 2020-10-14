@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JSON Tool</title>
+    <title>JsonTool</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css" crossorigin="anonymous">
@@ -14,15 +14,20 @@
     <div id="app" class="d-flex flex-column justify-content-between">
         <div id="top" class="flex-grow-1 d-flex flex-column justify-content-between">
             <nav class="navbar navbar-expand-md navbar-dark bg-primary py-0 px-2">
-                <a class="navbar-brand text-white">JSON Tool <small class="ml-1 text-light">by Matthew Watkins</small></a>
+                <a class="navbar-brand text-white">JsonTool <small class="ml-1 text-light">by Matthew Watkins</small></a>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/watkinsmatthewp/json-tool" target="_blank">
-                            <i class="fab fa-github mr-1 text-white"></i> Source
+                    <li class="nav-item mr-2">
+                        <a id="btn-help" class="nav-link text-white" data-toggle="modal" data-target="#help-modal">
+                            <i class="far fa-question-circle mr-1"></i> Help
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.matthewpwatkins.com/" target="_blank">
+                        <a class="nav-link text-white" href="https://github.com/watkinsmatthewp/json-tool" target="_blank">
+                            <i class="fab fa-github mr-1"></i> Source
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="https://www.matthewpwatkins.com/" target="_blank">
                             <img src="./me-256.png" class="navbar-icon-img mr-1" /> Matthew
                         </a>
                     </li>
@@ -132,6 +137,87 @@
                     <span class="mr-1">|</span>
                     <a href="https://www.matthewpwatkins.com/" target="_blank">Matthew Watkins</a>
                 </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="help-modal" tabindex="-1" aria-labelledby="help-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="help-modal-label">About JsonTool</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        JsonTool allows you to transform JSON using JavaScript-- right in your browser.
+                        Use it to normalize your objects, query a data set, sort records, or whatever you want!
+                        How to use it:
+                    </p>
+                    <ol>
+                        <li>Paste or upload some JSON into the editor on the left.</li>
+                        <li>Massage the data in the <code>transform()</code> function in the middle editor. Return the object you want.</li>
+                        <li>Click the <strong>TRANSFORM</strong> button</li>
+                    </ol>
+
+                    <hr />
+
+                    <h6><i class="fas fa-lock mr-1"></i></i> Is it secret? Is it safe?</h6>
+                    <p>
+                        JsonTool runs entirely in your browser. There are no server post backs harvesting your data.
+                        Check your developer console if you don't believe me ;)
+                    </p>
+                    
+                    <h6><i class="fas fa-laptop-code mr-1"></i> Wait, you let me run arbitrary JavaScript in your tool?</h6>
+                    <p>
+                        Yes. You can enter any JS code in the transform window that you want.
+                    </p>
+
+                    <h6><i class="fas fa-user-secret mr-1"></i> So I can redirect to other sites and hijack the page?</h6>
+                    <p>
+                        Again, this is a 100% static site-- it runs entirely in <em>your browser</em>.
+                        Nothing is posted to my server, let alone stored for other users to see.
+                        If you want to write some JS code to redirect your own browser to YouTube or post
+                        to some malicious API, go right ahead-- it's <em>your browser</em>.
+                    </p>
+
+                    <h6><i class="fas fa-heart-broken mr-1"></i> How much load would break this?</h6>
+                    <p>
+                        The text editor library I'm using has some pretty good optimizations built in to prevent crashing the page for beefy files,
+                        but again, how much load the tool will handle on your browser depends on... your browser. If you upload a 1 GB JSON file
+                        or write an infinite loop in your transform code, that's on you.
+                    </p>
+
+                    <h6><i class="fas fa-cogs mr-1"></i> So what libraries power this thing, anyway?</h6>
+                    <p>
+                        Now you're talking. I use
+                        <a href="https://getbootstrap.com/" target="_blank"></a>Bootstrap</a> UI framework,
+                        <a href="https://jquery.com/" target="_blank"></a>jQuery for the logic</a> (don't judge-- I'll switch to React or Vue... eventually),
+                        <a href="https://ace.c9.io/" target="_blank">Ace</a> for the editors,
+                        <a href="https://fontawesome.com/" target="_blank">Font Awesome</a> for the icons,
+                        <a href="https://github.com/watkinsmatthewp/json-tool" target="_blank">GitHub</a> for source management,
+                        and the awesome <a href="https://www.netlify.com/" target="_blank">Netlify</a> for hosting and CD.
+                    </p>
+
+                    <h6><i class="fas fa-tools mr-1"></i> New features?</h6>
+                    <p>
+                        If you want to request a new feature, create an issue on for the project on <a href="https://github.com/watkinsmatthewp/json-tool">GitHub</a>.
+                        If you want to add your own, fork it and submit a pull request.
+                    </p>
+
+                    <h6><i class="fas fa-beer mr-1"></i> This tool made my life easier! Can I buy you a root beer?</h6>
+                    <p>
+                        Aw, thanks, I won't say no to that! <i class="far fa-smile-wink"></i>
+                        You can contact me at <a href="https://www.matthewpwatkins.com/" target="_blank">my website</a>
+                        or hit me up on Venmo or PayPal if you feel so inclined:
+                    </p>
+                    <div class="d-flex justify-content-around mt-3">
+                        <a href="https://venmo.com/code?user_id=2863393199357952917" target="_blank"><img src="./venmo-qr.jpg" class="img-fluid" style="vertical-align: text-bottom; height: 4rem;" /></a>
+                        <a href="https://paypal.me/watkinsmatthewp" target="_blank"><i class="fab fa-paypal" style="vertical-align: text-bottom; font-size: 4rem;"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
