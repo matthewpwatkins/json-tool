@@ -51,6 +51,55 @@ function getFunctionBody(fn) {
   }
 }
 
+function getInputEditor() {
+  return EDITORS_BY_ID['editor-input'];
+}
+
+function getInputObjectFromEditor() {
+  const inputText = getInputEditor().getValue();  
+  if (!inputText) {
+    throw 'No input JSON specified';
+  }
+
+  try {
+    const inputObject = JSON.parse(inputText);
+    if (!inputObject) {
+      throw 'the object result was ' + inputObject;
+    }
+    return inputObject;
+  }
+  catch (err) {
+    throw 'Could not parse input as JSON: ' + err;
+  }  
+}
+
+function getTransformEditor() {
+  return EDITORS_BY_ID['editor-transform'];
+}
+
+function getOutputEditor() {
+  return EDITORS_BY_ID['editor-output'];
+}
+
+function getConsoleEditor() {
+  return EDITORS_BY_ID['editor-console'];
+}
+
+function logToConsoleEditor(line) {
+  const consoleEditor = getConsoleEditor();
+  const existingLines = consoleEditor.session.getLength();
+  const prepend = existingLines > 1 || consoleEditor.getValue().trim().length > 0 ? '\n' : ''
+  consoleEditor.session.insert({
+    row: consoleEditor.session.getLength(),
+    column: 0
+  }, `${prepend}${new Date().toISOString()}: ${line}`);
+  consoleEditor.scrollToLine(existingLines + 1, false, false);
+}
+
+function clearEditor(editor) {
+  editor.setValue('', -1);
+}
+
 const DEFAULT_TRANSFORM_FUNCTION_BODY_STRING = transform.toString();
 const EDITORS_BY_ID = {};
 
@@ -107,27 +156,17 @@ $(function () {
   });
 
   // Populate default values
-  EDITORS_BY_ID['editor-input'].setValue(JSON.stringify(DEFAULT_OBJ, null, 2), -1);
-  EDITORS_BY_ID['editor-transform'].setValue(DEFAULT_TRANSFORM_FUNCTION_BODY_STRING, -1);
+  getInputEditor().setValue(JSON.stringify(DEFAULT_OBJ, null, 2), -1);
+  getTransformEditor().setValue(DEFAULT_TRANSFORM_FUNCTION_BODY_STRING, -1);
 
   const performTransform = () => {
     let operation;
-    let consoleLine;
     try {
-      operation = 'reading JSON input';
-      const inputText = EDITORS_BY_ID['editor-input'].getValue();
-      if (!inputText) {
-        throw 'No input JSON specified';
-      }
-
-      operation = 'parsing JSON input';
-      const inputObject = JSON.parse(inputText);
-      if (!inputObject) {
-        throw 'Could not parse input as JSON';
-      }
+      operation = 'reading input object json';
+      const inputObject = getInputObjectFromEditor();
 
       operation = 'parsing transform function';
-      const transformFunctionText = EDITORS_BY_ID['editor-transform'].getValue();
+      const transformFunctionText = getTransformEditor().getValue();
       if (!transformFunctionText) {
         throw 'No transform JS specified';
       }
@@ -143,31 +182,30 @@ $(function () {
 
       operation = 'serializing the input object';
       const resultObjectJSON = JSON.stringify(resultObject, null, 2) || '';
-
-      operation = null;
-      EDITORS_BY_ID['editor-output'].setValue(resultObjectJSON, -1);
-      consoleLine = 'Transformed successfully';
+      getOutputEditor().setValue(resultObjectJSON, -1);
+      logToConsoleEditor('Transformed successfully');
     } catch (err) {
       console.error(operation, err);
-      EDITORS_BY_ID['editor-output'].setValue('', -1);
-      consoleLine = `ERROR ${operation}\n${err}`;
+      clearEditor(getOutputEditor());
+      logToConsoleEditor(`ERROR ${operation}: ${err}`);
     }
-
-    const consoleEditor =  EDITORS_BY_ID['editor-console'];
-    const existingLines = consoleEditor.session.getLength();
-    const prepend = existingLines > 1 || consoleEditor.getValue().trim().length > 0 ? '\n' : ''
-    consoleEditor.session.insert({
-      row: consoleEditor.session.getLength(),
-      column: 0
-    }, `${prepend}${new Date().toISOString()}: ${consoleLine}`);
-    consoleEditor.scrollToLine(existingLines + 1, false, false);
   };
 
   performTransform();
 
   $('#btn-transform').click(performTransform);
 
+  $('#btn-pretty').click(function() {
+    try {
+      const inputObject = getInputObjectFromEditor();
+      getInputEditor().setValue(JSON.stringify(inputObject, null, 2), -1);
+      logToConsoleEditor('Prettified');
+    } catch (err) {
+      logToConsoleEditor('Error prettifying JSON: ' + err);
+    }
+  });
+
   $('#btn-console-clear').click(function() {
-    EDITORS_BY_ID['editor-console'].setValue('', -1);
+    clearEditor(getConsoleEditor());
   });
 });
