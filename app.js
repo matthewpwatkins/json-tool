@@ -101,7 +101,7 @@ $(function () {
     editor.renderer.on('afterRender', function() {
       setTimeout(function() {
         editorSelectorElement.removeClass("invisible");
-      }, 250);
+      }, 400);
     });
   }
 
