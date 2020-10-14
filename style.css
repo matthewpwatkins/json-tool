@@ -40,3 +40,7 @@ a:hover {
 #footer a {
     color: unset;
 }
+
+.invisible {
+    opacity: 0;
+}

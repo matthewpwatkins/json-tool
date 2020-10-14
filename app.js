@@ -94,7 +94,15 @@ $(function () {
       readOnly: isReadOnly,
       showPrintMargin: false
     });
-    EDITORS_BY_ID[editorSelectorElement.attr("id")] = editor;
+
+    const editorID = editorSelectorElement.attr("id");
+    EDITORS_BY_ID[editorID] = editor;
+
+    editor.renderer.on('afterRender', function() {
+      setTimeout(function() {
+        editorSelectorElement.removeClass("invisible");
+      }, 250);
+    });
   }
 
   // Bind the file menu options
