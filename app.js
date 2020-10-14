@@ -3,55 +3,34 @@ const DEFAULT_OBJ = {
   householdMembers: [
     {
       name: "John",
-      isPerson: true,
       isHead: true,
-      age: 30,
-    },
-    {
-      name: "Fido",
-      isPerson: false,
-    },
-    {
-      name: "Jeb",
-      isPerson: true,
-      age: 0,
+      age: 30
     },
     {
       name: "Jack",
-      isPerson: true,
-      age: 4,
+      age: 4
     },
     {
       name: "Jill",
-      isPerson: true,
-      age: 2,
+      age: 2
     },
     {
       name: "Jane",
-      isPerson: true,
       isHead: true,
-      age: 28,
+      age: 28
     },
   ],
 };
 
 function transform(obj) {
-  for (const member of obj.householdMembers) {
-    member.name = `${member.name} ${obj.lastName}`;
-  }
-
-  const result = {
-    family: {},
-  };
-
-  result.family.heads = obj.householdMembers
-    .filter(m => m.isHead)
-    .sort((a, b) => a.age - b.age);
-  result.family.children = obj.householdMembers
-    .filter(m => m.isPerson && !m.isHead)
-    .sort((a, b) => a.age - b.age);
-
-  return result;
+  // Return full names of household members with their roles
+  // Parents are returned before children
+  return obj.householdMembers
+    .sort(m => m.isHead ? -1 : 1)
+    .map(m => { 
+        const type = m.isHead ? 'parent' : 'child';
+        return `${m.name} ${obj.lastName} (${type})`;
+    });
 }
 
 function getFunctionBody(fn) {
