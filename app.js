@@ -106,13 +106,17 @@ const EDITORS_BY_ID = {};
 
 $(function () {
   // Render the editors
+  let editorsBeingRendered = 0;
+  const spinner = $('#spinner-backdrop');
   for (const editorElement of $(".ace-editor")) {
     const editorSelectorElement = $(editorElement);
     const isReadOnlyValue = editorSelectorElement.attr('ace-read-only');
     const isReadOnly = typeof isReadOnlyValue !== typeof undefined && isReadOnlyValue !== false;
     const minLines = parseInt(editorSelectorElement.attr('ace-min-lines'));
     const maxLines = parseInt(editorSelectorElement.attr('ace-max-lines'));
+    const editorID = editorSelectorElement.attr("id");
 
+    editorsBeingRendered++;
     const editor = ace.edit(editorElement, {
       theme: "ace/theme/twilight",
       mode: "ace/mode/" + editorSelectorElement.attr("ace-language"),
@@ -123,13 +127,17 @@ $(function () {
       readOnly: isReadOnly,
       showPrintMargin: false
     });
-
-    const editorID = editorSelectorElement.attr("id");
+    console.log(editor.renderer);
+    
     EDITORS_BY_ID[editorID] = editor;
 
     editor.renderer.on('afterRender', function() {
       setTimeout(function() {
         editorSelectorElement.removeClass("invisible");
+        editorsBeingRendered--;
+        if (editorsBeingRendered <= 0) {
+          spinner.addClass('invisible');
+        }
       }, 400);
     });
   }
@@ -148,12 +156,14 @@ $(function () {
 
   // Handle file uploads
   $('.hidden-file-selector').change(function (changeEvent) {
+    $('#spinner-backdrop').removeClass('invisible');
     const selectedFile = changeEvent.target.files[0];
     const targetEditor = EDITORS_BY_ID[$(this).attr('editor-target')];
     const fileReader = new FileReader();
     fileReader.addEventListener('load', loadEvent => {
       targetEditor.setValue(loadEvent.target.result, -1);
       logToConsoleEditor(`Loaded ${selectedFile.name}`);
+      $('#spinner-backdrop').addClass('invisible');
     });
     fileReader.readAsText(selectedFile);
   });
@@ -163,6 +173,7 @@ $(function () {
   getTransformEditor().setValue(DEFAULT_TRANSFORM_FUNCTION_BODY_STRING, -1);
 
   const performTransform = () => {
+    $('#spinner-backdrop').removeClass('invisible');
     let operation;
     try {
       operation = 'reading input object json';
@@ -192,6 +203,7 @@ $(function () {
       clearEditor(getOutputEditor());
       logToConsoleEditor(`ERROR ${operation}: ${err}`);
     }
+    $('#spinner-backdrop').addClass('invisible');
   };
 
   performTransform();
@@ -199,6 +211,7 @@ $(function () {
   $('#btn-transform').click(performTransform);
 
   $('#btn-pretty').click(function() {
+    $('#spinner-backdrop').removeClass('invisible');
     try {
       const inputObject = getInputObjectFromEditor();
       getInputEditor().setValue(JSON.stringify(inputObject, null, 2), -1);
@@ -206,6 +219,7 @@ $(function () {
     } catch (err) {
       logToConsoleEditor('Error prettifying JSON: ' + err);
     }
+    $('#spinner-backdrop').addClass('invisible');
   });
 
   $('#btn-console-clear').click(function() {

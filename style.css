@@ -44,3 +44,14 @@ a:hover {
 .invisible {
     opacity: 0;
 }
+
+#spinner-backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: black;
+    z-index: 999;;
+    opacity: .35;
+}
