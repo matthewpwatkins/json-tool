@@ -58,7 +58,7 @@
                     </li>
                 </ul>
             </nav>
-            <!-- <div class="jumbotron jumbotron-fluid flex-grow-1 mobile-only bg-dark text-light">
+            <div class="d-lg-none jumbotron jumbotron-fluid flex-grow-1 mobile-only bg-dark text-light">
                 <div class="container">
                     <h1 class="display-4 fa-6x mb-5 text-center">
                         <i class="fas fa-mobile mr-2"></i>
@@ -66,14 +66,15 @@
                         <i class="far fa-frown"></i>
                     </h1>
                     <p class="lead">
-                        Sorry! JsonTool uses 3 embedded text editors. 
+                        Sorry! You need 3 embedded side-by-side text editors to bring you the JSON-transforming awesomeness that is JsonTool.
+                        Try running this on a desktop with a decent sized screen.
                     </p>
                     <p class="lead">
                         <img class="img-fluid" src="./img/screenshot.jpg" />
                     </p>
                 </div>
-            </div> -->
-            <div id="editors" class="d-lg flex-grow-1 row mx-0">
+            </div>
+            <div id="editors" class="d-none d-lg-flex flex-grow-1 row mx-0">
                 <!-- INPUT COLUMN -->
                 <div class="col px-0 d-flex flex-column justify-content-between">
                     <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
@@ -160,8 +161,7 @@
             </div>
         </div>
         <div id="bottom">
-            <div id="console">
-                <div id="top-bottom-separator" class="my-2"></div>
+            <div id="console" class="mt-4 d-none d-lg-block">
                 <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ace-editor-title-tab">
