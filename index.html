@@ -38,25 +38,32 @@
 <body class="bg-dark">
     <div id="app" class="d-flex flex-column justify-content-between">
         <div id="top" class="flex-grow-1 d-flex flex-column justify-content-between">
-            <nav class="navbar navbar-expand-md navbar-dark bg-primary py-0 px-2">
-                <a class="navbar-brand text-white">JsonTool</a>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mr-2">
-                        <a id="btn-help" class="nav-link text-white" data-toggle="modal" data-target="#help-modal">
-                            <i class="far fa-question-circle mr-1"></i> Help
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="https://github.com/watkinsmatthewp/json-tool" target="_blank">
-                            <i class="fab fa-github mr-1"></i> Source
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="https://www.matthewpwatkins.com/" target="_blank">
-                            <img src="./img/me-256.png" class="navbar-icon-img mr-1" /> Matthew
-                        </a>
-                    </li>
-                </ul>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <span class="navbar-brand" href="#">JsonTool</span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#app-nav-bar"
+                    aria-controls="app-nav-bar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="app-nav-bar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a id="btn-help" class="nav-link" data-toggle="modal" data-target="#help-modal">
+                                <i class="far fa-question-circle mr-1"></i> Help
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="https://github.com/watkinsmatthewp/json-tool" target="_blank">
+                                <i class="fab fa-github mr-1"></i> Source
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="https://www.matthewpwatkins.com" target="_blank">
+                                <img src="./img/me-256.png" class="navbar-icon-img mr-1" /> Matthew
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
             <div class="d-lg-none jumbotron jumbotron-fluid flex-grow-1 mobile-only bg-dark text-light">
                 <div class="container">
