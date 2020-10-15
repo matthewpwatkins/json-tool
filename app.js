@@ -89,10 +89,11 @@ function logToConsoleEditor(line) {
   const consoleEditor = getConsoleEditor();
   const existingLines = consoleEditor.session.getLength();
   const prepend = existingLines > 1 || consoleEditor.getValue().trim().length > 0 ? '\n' : ''
+  const dateString = new Date().toISOString().substring(0, 19).replace('T', ' ');
   consoleEditor.session.insert({
     row: consoleEditor.session.getLength(),
     column: 0
-  }, `${prepend}${new Date().toISOString()}: ${line}`);
+  }, `${prepend}${dateString}:  ${line}`);
   consoleEditor.scrollToLine(existingLines + 1, false, false);
 }
 
@@ -147,12 +148,14 @@ $(function () {
 
   // Handle file uploads
   $('.hidden-file-selector').change(function (changeEvent) {
+    const selectedFile = changeEvent.target.files[0];
     const targetEditor = EDITORS_BY_ID[$(this).attr('editor-target')];
     const fileReader = new FileReader();
     fileReader.addEventListener('load', loadEvent => {
       targetEditor.setValue(loadEvent.target.result, -1);
+      logToConsoleEditor(`Loaded ${selectedFile.name}`);
     });
-    fileReader.readAsText(changeEvent.target.files[0]);
+    fileReader.readAsText(selectedFile);
   });
 
   // Populate default values
