@@ -7,9 +7,7 @@
     <title>JsonTool</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./desktop-style.css" media="screen" />
-    <link rel="stylesheet" href="./mobile-style.css" media="handheld" />
+    <link rel="stylesheet" href="./style.css" crossorigin="anonymous" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.jsontool.dev"/>
@@ -18,23 +16,23 @@
     <meta property="og:site_name" content="JsonTool"/>
     <meta property="og:image" content="https://www.jsontool.dev/img/billboard.jpg"/>
 
-    <link rel="apple-touch-icon" sizes="57x57" href="./img/icon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="./img/icon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="./img/icon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="./img/icon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="./img/icon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="./img/icon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="./img/icon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="./img/icon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./img/icon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="./img/icon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="./img/icon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./img/icon/favicon-16x16.png">
-    <link rel="manifest" href="./img/icon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="./img/icon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="57x57" href="./img/icon/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="./img/icon/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="./img/icon/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./img/icon/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="./img/icon/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="./img/icon/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="./img/icon/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="./img/icon/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/icon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192"  href="./img/icon/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/icon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="./img/icon/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/icon/favicon-16x16.png" />
+    <link rel="manifest" href="./img/icon/manifest.json" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="./img/icon/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
 </head>
 
 <body class="bg-dark">
@@ -60,7 +58,7 @@
                     </li>
                 </ul>
             </nav>
-            <div class="jumbotron jumbotron-fluid flex-grow-1 mobile-only bg-dark text-light">
+            <!-- <div class="jumbotron jumbotron-fluid flex-grow-1 mobile-only bg-dark text-light">
                 <div class="container">
                     <h1 class="display-4 fa-6x mb-5 text-center">
                         <i class="fas fa-mobile mr-2"></i>
@@ -68,15 +66,14 @@
                         <i class="far fa-frown"></i>
                     </h1>
                     <p class="lead">
-                        Sorry! JsonTool uses state of the art embedded JavaScript text editors, and your mobile device probably can't handle that.
-                        Please visit us on the desktop to enjoy the JSON transformation awesomeness. :)
+                        Sorry! JsonTool uses 3 embedded text editors. 
                     </p>
                     <p class="lead">
                         <img class="img-fluid" src="./img/screenshot.jpg" />
                     </p>
                 </div>
-            </div>
-            <div id="editors" class="flex-grow-1 row mx-0 desktop-only">
+            </div> -->
+            <div id="editors" class="d-lg flex-grow-1 row mx-0">
                 <!-- INPUT COLUMN -->
                 <div class="col px-0 d-flex flex-column justify-content-between">
                     <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
@@ -162,9 +159,9 @@
                 </div>
             </div>
         </div>
-        <div id="top-bottom-separator" class="my-2 desktop-only"></div>
         <div id="bottom">
-            <div id="console" class="desktop-only">
+            <div id="console">
+                <div id="top-bottom-separator" class="my-2"></div>
                 <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ace-editor-title-tab">
