@@ -127,7 +127,6 @@ $(function () {
       readOnly: isReadOnly,
       showPrintMargin: false
     });
-    console.log(editor.renderer);
     
     EDITORS_BY_ID[editorID] = editor;
 
