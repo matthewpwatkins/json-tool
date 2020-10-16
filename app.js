@@ -150,7 +150,9 @@ $(function () {
   $('.btn-file-save').click(function() {
     const editor = EDITORS_BY_ID[$(this).attr('editor-target')];
     const code = editor.getValue();
-    download(code, $(this).attr('file-name'), 'text/plain');
+    const fileName = $(this).attr('file-name');
+    download(code, fileName, 'text/plain');
+    logToConsoleEditor('Downloading ' + fileName);
   });
 
   // Handle file uploads
