@@ -1,3 +1,5 @@
+const TAB_SIZE = 2;
+
 const DEFAULT_OBJ = {
   lastName: "Doe",
   householdMembers: [
@@ -125,7 +127,8 @@ $(function () {
       wrap: true,
       autoScrollEditorIntoView: true,
       readOnly: isReadOnly,
-      showPrintMargin: false
+      showPrintMargin: false,
+      tabSize: TAB_SIZE
     });
     
     EDITORS_BY_ID[editorID] = editor;
@@ -173,7 +176,7 @@ $(function () {
   });
 
   // Populate default values
-  getInputEditor().setValue(JSON.stringify(DEFAULT_OBJ, null, 2), -1);
+  getInputEditor().setValue(JSON.stringify(DEFAULT_OBJ, null, TAB_SIZE), -1);
   getTransformEditor().setValue(DEFAULT_TRANSFORM_FUNCTION_BODY_STRING, -1);
 
   const performTransform = () => {
@@ -199,7 +202,7 @@ $(function () {
       }
 
       operation = 'serializing the input object';
-      const resultObjectJSON = JSON.stringify(resultObject, null, 2) || '';
+      const resultObjectJSON = JSON.stringify(resultObject, null, TAB_SIZE) || '';
       getOutputEditor().setValue(resultObjectJSON, -1);
       logToConsoleEditor('Transformed successfully');
     } catch (err) {
@@ -218,7 +221,7 @@ $(function () {
     $('#spinner-backdrop').removeClass('invisible');
     try {
       const inputObject = getInputObjectFromEditor();
-      getInputEditor().setValue(JSON.stringify(inputObject, null, 2), -1);
+      getInputEditor().setValue(JSON.stringify(inputObject, null, TAB_SIZE), -1);
       logToConsoleEditor('Prettified');
     } catch (err) {
       logToConsoleEditor('Error prettifying JSON: ' + err);
