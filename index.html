@@ -1,349 +1,252 @@
-<!doctype html>
-<html lang="en">
+---
+layout: fullscreen-page
+---
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JsonTool</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
-    <link rel="stylesheet" href="./css/site.css" crossorigin="anonymous" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.jsontool.dev"/>
-    <meta property="og:title" content="JsonTool | by Matthew Watkins"/>
-    <meta property="og:description" content="JsonTool allows you to transform JSON using JavaScript-- right in your browser. Use it to normalize your objects, query a data set, sort records, or whatever you want!"/>
-    <meta property="og:site_name" content="JsonTool"/>
-    <meta property="og:image" content="https://www.jsontool.dev/img/billboard.jpg"/>
-
-    <link rel="apple-touch-icon" sizes="57x57" href="./img/icon/apple-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="60x60" href="./img/icon/apple-icon-60x60.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="./img/icon/apple-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="./img/icon/apple-icon-76x76.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="./img/icon/apple-icon-114x114.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="./img/icon/apple-icon-120x120.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="./img/icon/apple-icon-144x144.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="./img/icon/apple-icon-152x152.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./img/icon/apple-icon-180x180.png" />
-    <link rel="icon" type="image/png" sizes="192x192"  href="./img/icon/android-icon-192x192.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/icon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="./img/icon/favicon-96x96.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="./img/icon/favicon-16x16.png" />
-    <link rel="manifest" href="./img/icon/manifest.json" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-TileImage" content="./img/icon/ms-icon-144x144.png" />
-    <meta name="theme-color" content="#ffffff" />
-</head>
-
-<body class="bg-dark">
-    <div id="app" class="d-flex flex-column justify-content-between">
-        <div id="top" class="flex-grow-1 d-flex flex-column justify-content-between">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <span class="navbar-brand" href="#">JsonTool</span>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#app-nav-bar"
-                    aria-controls="app-nav-bar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            
-                <div class="collapse navbar-collapse" id="app-nav-bar">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a id="btn-help" class="nav-link" data-toggle="modal" data-target="#help-modal">
-                                <i class="far fa-question-circle mr-1"></i> Help
-                            </a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="https://github.com/watkinsmatthewp/json-tool" target="_blank">
-                                <i class="fab fa-github mr-1"></i> Source
-                            </a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="https://www.matthewpwatkins.com/#contact" target="_blank">
-                                <i class="far fa-envelope mr-1"></i> Contact
-                            </a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="https://www.matthewpwatkins.com" target="_blank">
-                                <img src="./img/me-256.png" class="navbar-icon-img mr-1" /> Matthew
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="d-lg-none jumbotron jumbotron-fluid flex-grow-1 mobile-only bg-dark text-light">
-                <div class="container">
-                    <h1 class="display-4 fa-6x mb-5 text-center">
-                        <i class="fas fa-mobile mr-2"></i>
-                        <i class="fas fa-equals mr-2"></i>
-                        <i class="far fa-frown"></i>
-                    </h1>
-                    <p class="lead">
-                        Sorry! You need 3 embedded side-by-side text editors to bring you the JSON-transforming awesomeness that is JsonTool.
-                        Try running this on a desktop with a decent sized screen.
-                    </p>
-                    <p class="lead">
-                        <img class="img-fluid" src="./img/screenshot.jpg" />
-                    </p>
-                </div>
-            </div>
-            <div id="editors" class="d-none d-lg-flex flex-grow-1 row mx-0">
-                <!-- INPUT COLUMN -->
-                <div class="col px-0 d-flex flex-column justify-content-between">
-                    <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item ace-editor-title-tab">
-                                <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> input.json</strong></span>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    File
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item btn-file-open" file-input-target="editor-input-file-selector">
-                                        <i class="far fa-folder-open"></i> Open
-                                    </a>
-                                    <a class="dropdown-item btn-file-save" editor-target="editor-input" file-name="input.json">
-                                        <i class="far fa-save"></i> Save
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a id="btn-pretty" class="nav-link text-light"><strong><i class="fas fa-stream mr-1"></i> Prettify</strong></a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <input class="hidden-file-selector" id="editor-input-file-selector" editor-target="editor-input" type="file" accept=".json,.jsonc" />
-                    <div id="editor-input" class="flex-grow-1 ace-editor invisible" ace-language="json5"></div>
-                </div>
-
-                <!-- TRANSFORM COLUMN -->
-                <div class="col px-0 d-flex flex-column justify-content-between">
-                    <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item ace-editor-title-tab">
-                                <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> transform.js</strong></span>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    File
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item btn-file-open" file-input-target="editor-transform-file-selector">
-                                        <i class="far fa-folder-open"></i> Open
-                                    </a>
-                                    <a class="dropdown-item btn-file-save" editor-target="editor-transform" file-name="transform.js">
-                                        <i class="far fa-save"></i> Save
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a id="btn-transform" class="nav-link text-light"><strong>TRANSFORM <i class="fas fa-arrow-right ml-1"></i></strong></a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <input class="hidden-file-selector" id="editor-transform-file-selector" editor-target="editor-transform" type="file" accept=".js" />
-                    <div id="editor-transform" class="flex-grow-1 ace-editor invisible" ace-language="javascript"></div>
-                </div>
-
-                <!-- OUTPUT COLUMN -->
-                <div class="col px-0 d-flex flex-column justify-content-between">
-                    <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
-                        <ul class="navbar-nav">
-                            <li class="nav-item ace-editor-title-tab">
-                                <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i> output.json</strong></span>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">File</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item btn-file-save" editor-target="editor-output" file-name="output.json">
-                                        <i class="far fa-save"></i> Save
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div id="editor-output" class="ace-editor flex-grow-1 invisible" ace-language="json5" ace-read-only ace-read-only></div>
-                </div>
-            </div>
-        </div>
-        <div id="bottom">
-            <div id="console" class="mt-4 d-none d-lg-block">
-                <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item ace-editor-title-tab">
-                            <span class="navbar-text text-light"><strong><i class="fas fa-terminal mr-1" style="color: greenyellow;"></i> Console</strong></span>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a id="btn-console-clear" class="nav-link"><strong><i class="fas fa-trash-alt"></i></strong></a>
-                        </li>
-                    </ul>
-                </nav>
-                <div id="editor-console" class="ace-editor invisible" ace-language="text" ace-read-only ace-min-lines="10" ace-max-lines="10"></div>
-            </div>
-            <div id="footer" class="p-1">
-                <p class="text-center mb-0 text-secondary">
-                    <span class="mr-1">&copy; 2020</span>
-                    <span class="mr-1">|</span>
-                    <a href="https://www.matthewpwatkins.com/" target="_blank">Matthew Watkins</a>
-                </p>
-            </div>
+<div class="flex-grow-1 d-flex flex-column justify-content-between">
+    <div class="d-lg-none jumbotron jumbotron-fluid flex-grow-1 mobile-only bg-dark text-light">
+        <div class="container">
+            <h1 class="display-4 fa-6x mb-5 text-center">
+                <i class="fas fa-mobile mr-2"></i>
+                <i class="fas fa-equals mr-2"></i>
+                <i class="far fa-frown"></i>
+            </h1>
+            <p class="lead">
+                Sorry! You need 3 embedded side-by-side text editors to bring you the JSON-transforming awesomeness that is
+                JsonTool.
+                Try running this on a desktop with a decent sized screen.
+            </p>
+            <p class="lead">
+                <img class="img-fluid" src="./img/screenshot.jpg" />
+            </p>
         </div>
     </div>
-
-    <!-- Fullscreen spinner -->
-    <div id="spinner-backdrop">
-        <div class="h-100 w-100 d-flex flex-column justify-content-center">
-            <div class="spinner-border text-light mx-auto" role="status" style="width: 10rem; height: 10rem;"><span class="sr-only">Loading...</span></div>
-        </div>
-    </div>
-
-    <!-- Help modal -->
-    <div class="modal fade" id="help-modal" tabindex="-1" aria-labelledby="help-modal-label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="help-modal-label">About JsonTool</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        JsonTool allows you to transform JSON using JavaScript-- right in your browser.
-                        Use it to normalize your objects, query a data set, sort records, or whatever you want!
-                        How to use it:
-                    </p>
-                    <ol>
-                        <li>Paste or upload some JSON into the editor on the left.</li>
-                        <li>Massage the data in the <code>transform()</code> function in the middle editor. Return the object you want.</li>
-                        <li>Click the <strong>TRANSFORM</strong> button</li>
-                    </ol>
-
-                    <hr />
-
-                    <h6><i class="fas fa-lock mr-1"></i></i> Is it secret? Is it safe?</h6>
-                    <p>
-                        JsonTool runs entirely in your browser. There are no server post backs harvesting your data.
-                        Check your developer console if you don't believe me ;)
-                    </p>
-                    
-                    <h6><i class="fas fa-laptop-code mr-1"></i> Wait, you let me run arbitrary JavaScript in your tool?</h6>
-                    <p>
-                        Yes. You can enter any JS code in the transform window that you want.
-                    </p>
-
-                    <h6><i class="fas fa-user-secret mr-1"></i> So I can redirect to other sites and hijack the page?</h6>
-                    <p>
-                        Again, this is a 100% static site-- it runs entirely in <em>your browser</em>.
-                        Nothing is posted to my server, let alone stored for other users to see.
-                        If you want to write some JS code to redirect your own browser to YouTube or post
-                        to some malicious API, go right ahead-- it's <em>your browser</em>.
-                    </p>
-
-                    <h6><i class="fas fa-heart-broken mr-1"></i> How much load would break this?</h6>
-                    <p>
-                        The text editor library I'm using has some pretty good optimizations built in to prevent crashing the page for beefy files,
-                        but again, how much load the tool will handle on your browser depends on... your browser. If you upload a 1 GB JSON file
-                        or write an infinite loop in your transform code, that's on you.
-                    </p>
-
-                    <h6><i class="fas fa-cogs mr-1"></i> So what libraries power this thing, anyway?</h6>
-                    <p>
-                        Now you're talking. I use
-                        <a href="https://getbootstrap.com/" target="_blank"></a>Bootstrap</a> UI framework,
-                        <a href="https://jquery.com/" target="_blank"></a>jQuery for the logic</a> (don't judge-- I'll switch to React or Vue... eventually),
-                        <a href="https://ace.c9.io/" target="_blank">Ace</a> for the editors,
-                        <a href="https://fontawesome.com/" target="_blank">Font Awesome</a> for the icons,
-                        <a href="https://github.com/watkinsmatthewp/json-tool" target="_blank">GitHub</a> for source management,
-                        and the awesome <a href="https://www.netlify.com/" target="_blank">Netlify</a> for hosting and CD.
-                    </p>
-
-                    <h6><i class="fas fa-tools mr-1"></i> New features?</h6>
-                    <p>
-                        If you want to request a new feature, create an issue on for the project on <a href="https://github.com/watkinsmatthewp/json-tool">GitHub</a>.
-                        If you want to add your own, fork it and submit a pull request.
-                    </p>
-
-                    <h6><i class="fas fa-beer mr-1"></i> This tool made my life easier! Can I buy you a root beer?</h6>
-                    <p>
-                        Aw, thanks, I won't say no to that! <i class="far fa-smile-wink"></i>
-                        You can contact me at <a href="https://www.matthewpwatkins.com/" target="_blank">my website</a>
-                        or hit me up on Venmo or PayPal if you feel so inclined:
-                    </p>
-                    <div class="d-flex justify-content-around mt-3">
-                        <a href="https://venmo.com/code?user_id=2863393199357952917" target="_blank"><img src="./img/venmo-qr.jpg" class="img-fluid" style="vertical-align: text-bottom; height: 4rem;" /></a>
-                        <a href="https://paypal.me/watkinsmatthewp" target="_blank"><i class="fab fa-paypal" style="vertical-align: text-bottom; font-size: 4rem;"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Chrome download modal -->
-    <div class="modal fade" id="chrome-download-modal" tabindex="-1" aria-labelledby="chrome-download-modal-label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="chrome-download-modal-label"><i class="fas fa-file-download mr-1"></i> File downloading</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Your file is downloading.
-                        However, Chrome may warn you that the file "is not commonly downloaded and may be dangerous."
-                    </p>
-                    <p>
-                        I am working with Google to find out why Chrome gives that warning-- after all, it's just a <em>text file</em>!
-                    </p>
-                    <p>
-                        In the meantime, if you see that message, click the arrow next to the "Discard" button and select "Keep."
-                        Or when the File Save Dialog pops up, change the extension to .txt so Chrome doesn't freak out and scare you.
-                    </p>
-                    <p class="text-center"><img src="img/not-commonly-downloaded.JPG" class="img-fluid" /></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"
-        integrity="sha512-ubuT8Z88WxezgSqf3RLuNi5lmjstiJcyezx34yIU2gAHonIi27Na7atqzUZCOoY4CExaoFumzOsFQ2Ch+I/HCw=="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"
-        integrity="sha512-8qmis31OQi6hIRgvkht0s6mCOittjMa9GMqtK9hes5iEQBQE/Ca6yGE5FsW36vyipGoWQswBj/QBm2JR086Rkw=="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"
-        integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q=="
-        crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/71d0e575d1.js"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"
-        integrity="sha512-WiGQZv8WpmQVRUFXZywo7pHIO0G/o3RyiAJZj8YXNN4AV7ReR1RYWVmZJ6y3H06blPcjJmG/sBpOVZjTSFFlzQ=="
-        crossorigin="anonymous"></script>
     
-    <script src="./js/site.js"></script>
+    <div id="editors" class="d-none d-lg-flex flex-grow-1 row mx-0">
+        <!-- INPUT COLUMN -->
+        <div class="col px-0 d-flex flex-column justify-content-between">
+            <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ace-editor-title-tab">
+                        <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i>
+                                input.json</strong></span>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            File
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item btn-file-open" file-input-target="editor-input-file-selector">
+                                <i class="far fa-folder-open"></i> Open
+                            </a>
+                            <a class="dropdown-item btn-file-save" editor-target="editor-input" file-name="input.json">
+                                <i class="far fa-save"></i> Save
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a id="btn-pretty" class="nav-link text-light"><strong><i class="fas fa-stream mr-1"></i>
+                                Prettify</strong></a>
+                    </li>
+                </ul>
+            </nav>
+            <input class="hidden-file-selector" id="editor-input-file-selector" editor-target="editor-input" type="file"
+                accept=".json,.jsonc" />
+            <div id="editor-input" class="flex-grow-1 ace-editor invisible" ace-language="json5"></div>
+        </div>
+    
+        <!-- TRANSFORM COLUMN -->
+        <div class="col px-0 d-flex flex-column justify-content-between">
+            <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ace-editor-title-tab">
+                        <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i>
+                                transform.js</strong></span>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            File
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item btn-file-open" file-input-target="editor-transform-file-selector">
+                                <i class="far fa-folder-open"></i> Open
+                            </a>
+                            <a class="dropdown-item btn-file-save" editor-target="editor-transform"
+                                file-name="transform.js">
+                                <i class="far fa-save"></i> Save
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a id="btn-transform" class="nav-link text-light"><strong>TRANSFORM <i
+                                    class="fas fa-arrow-right ml-1"></i></strong></a>
+                    </li>
+                </ul>
+            </nav>
+            <input class="hidden-file-selector" id="editor-transform-file-selector" editor-target="editor-transform"
+                type="file" accept=".js" />
+            <div id="editor-transform" class="flex-grow-1 ace-editor invisible" ace-language="javascript"></div>
+        </div>
+    
+        <!-- OUTPUT COLUMN -->
+        <div class="col px-0 d-flex flex-column justify-content-between">
+            <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
+                <ul class="navbar-nav">
+                    <li class="nav-item ace-editor-title-tab">
+                        <span class="navbar-text text-light"><strong><i class="fas fa-code mr-1" style="color: orange;"></i>
+                                output.json</strong></span>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">File</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item btn-file-save" editor-target="editor-output" file-name="output.json">
+                                <i class="far fa-save"></i> Save
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div id="editor-output" class="ace-editor flex-grow-1 invisible" ace-language="json5" ace-read-only
+                ace-read-only></div>
+        </div>
+    </div>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-25753249-4"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-25753249-4');
-    </script>
-</body>
-</html>
+    <div id="console" class="mt-4 d-none d-lg-block">
+        <nav class="ace-editor-navbar navbar navbar-expand-lg navbar-light bg-info p-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ace-editor-title-tab">
+                    <span class="navbar-text text-light"><strong><i class="fas fa-terminal mr-1" style="color: greenyellow;"></i> Console</strong></span>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a id="btn-console-clear" class="nav-link"><strong><i class="fas fa-trash-alt"></i></strong></a>
+                </li>
+            </ul>
+        </nav>
+        <div id="editor-console" class="ace-editor invisible" ace-language="text" ace-read-only ace-min-lines="10" ace-max-lines="10"></div>
+    </div>
+</div>
+
+<!-- Fullscreen spinner -->
+<div id="spinner-backdrop">
+    <div class="h-100 w-100 d-flex flex-column justify-content-center">
+        <div class="spinner-border text-light mx-auto" role="status" style="width: 10rem; height: 10rem;"><span class="sr-only">Loading...</span></div>
+    </div>
+</div>
+
+<!-- Help modal -->
+<div class="modal fade" id="help-modal" tabindex="-1" aria-labelledby="help-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="help-modal-label">About JsonTool</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    JsonTool allows you to transform JSON using JavaScript-- right in your browser.
+                    Use it to normalize your objects, query a data set, sort records, or whatever you want!
+                    How to use it:
+                </p>
+                <ol>
+                    <li>Paste or upload some JSON into the editor on the left.</li>
+                    <li>Massage the data in the <code>transform()</code> function in the middle editor. Return the object you want.</li>
+                    <li>Click the <strong>TRANSFORM</strong> button</li>
+                </ol>
+
+                <hr />
+
+                <h6><i class="fas fa-lock mr-1"></i></i> Is it secret? Is it safe?</h6>
+                <p>
+                    JsonTool runs entirely in your browser. There are no server post backs harvesting your data.
+                    Check your developer console if you don't believe me ;)
+                </p>
+                
+                <h6><i class="fas fa-laptop-code mr-1"></i> Wait, you let me run arbitrary JavaScript in your tool?</h6>
+                <p>
+                    Yes. You can enter any JS code in the transform window that you want.
+                </p>
+
+                <h6><i class="fas fa-user-secret mr-1"></i> So I can redirect to other sites and hijack the page?</h6>
+                <p>
+                    Again, this is a 100% static site-- it runs entirely in <em>your browser</em>.
+                    Nothing is posted to my server, let alone stored for other users to see.
+                    If you want to write some JS code to redirect your own browser to YouTube or post
+                    to some malicious API, go right ahead-- it's <em>your browser</em>.
+                </p>
+
+                <h6><i class="fas fa-heart-broken mr-1"></i> How much load would break this?</h6>
+                <p>
+                    The text editor library I'm using has some pretty good optimizations built in to prevent crashing the page for beefy files,
+                    but again, how much load the tool will handle on your browser depends on... your browser. If you upload a 1 GB JSON file
+                    or write an infinite loop in your transform code, that's on you.
+                </p>
+
+                <h6><i class="fas fa-cogs mr-1"></i> So what libraries power this thing, anyway?</h6>
+                <p>
+                    Now you're talking. I use
+                    <a href="https://getbootstrap.com/" target="_blank"></a>Bootstrap</a> UI framework,
+                    <a href="https://jquery.com/" target="_blank"></a>jQuery for the logic</a> (don't judge-- I'll switch to React or Vue... eventually),
+                    <a href="https://ace.c9.io/" target="_blank">Ace</a> for the editors,
+                    <a href="https://fontawesome.com/" target="_blank">Font Awesome</a> for the icons,
+                    <a href="https://github.com/watkinsmatthewp/json-tool" target="_blank">GitHub</a> for source management,
+                    and the awesome <a href="https://www.netlify.com/" target="_blank">Netlify</a> for hosting and CD.
+                </p>
+
+                <h6><i class="fas fa-tools mr-1"></i> New features?</h6>
+                <p>
+                    If you want to request a new feature, create an issue on for the project on <a href="https://github.com/watkinsmatthewp/json-tool">GitHub</a>.
+                    If you want to add your own, fork it and submit a pull request.
+                </p>
+
+                <h6><i class="fas fa-beer mr-1"></i> This tool made my life easier! Can I buy you a root beer?</h6>
+                <p>
+                    Aw, thanks, I won't say no to that! <i class="far fa-smile-wink"></i>
+                    You can contact me at <a href="https://www.matthewpwatkins.com/" target="_blank">my website</a>
+                    or hit me up on Venmo or PayPal if you feel so inclined:
+                </p>
+                <div class="d-flex justify-content-around mt-3">
+                    <a href="https://venmo.com/code?user_id=2863393199357952917" target="_blank"><img src="./img/venmo-qr.jpg" class="img-fluid" style="vertical-align: text-bottom; height: 4rem;" /></a>
+                    <a href="https://paypal.me/watkinsmatthewp" target="_blank"><i class="fab fa-paypal" style="vertical-align: text-bottom; font-size: 4rem;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chrome download modal -->
+<div class="modal fade" id="chrome-download-modal" tabindex="-1" aria-labelledby="chrome-download-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chrome-download-modal-label"><i class="fas fa-file-download mr-1"></i> File downloading</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Your file is downloading.
+                    However, Chrome may warn you that the file "is not commonly downloaded and may be dangerous."
+                </p>
+                <p>
+                    I am working with Google to find out why Chrome gives that warning-- after all, it's just a <em>text file</em>!
+                </p>
+                <p>
+                    In the meantime, if you see that message, click the arrow next to the "Discard" button and select "Keep."
+                    Or when the File Save Dialog pops up, change the extension to .txt so Chrome doesn't freak out and scare you.
+                </p>
+                <p class="text-center"><img src="img/not-commonly-downloaded.JPG" class="img-fluid" /></p>
+            </div>
+        </div>
+    </div>
+</div>
