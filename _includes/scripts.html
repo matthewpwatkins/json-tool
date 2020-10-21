@@ -16,6 +16,9 @@
     crossorigin="anonymous"></script>
 
 <script src="./js/site.js"></script>
+{% for extra_script in page.extra_js %}
+    <script src="./js/{{ extra_script }}.js"></script>
+{% endfor %}
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-25753249-4"></script>
