@@ -3,13 +3,13 @@ layout: default
 ---
 
 <div id="app" class="d-flex flex-column justify-content-between">
-    <div class="flex-grow-1 d-flex flex-column justify-content-between">
-        <div>
-            {% include nav.html %}
-        </div>
-        {{ content }}
-    </div>
+  <div class="flex-grow-1 d-flex flex-column justify-content-between">
     <div>
-        {% include footer.html %}
+      {% include nav.html %}
     </div>
+    {{ content }}
+  </div>
+  <div>
+    {% include footer.html %}
+  </div>
 </div>
