@@ -157,9 +157,6 @@ $(function () {
     const fileName = $(this).attr("file-name");
     download(code, fileName, "text/plain");
     logToConsoleEditor("Downloading " + fileName);
-    if (window.chrome) {
-      $("#chrome-download-modal").modal();
-    }
   });
 
   // Handle file uploads
